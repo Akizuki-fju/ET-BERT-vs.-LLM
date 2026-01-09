@@ -26,9 +26,9 @@
 * **惡意判斷 (Detection)**：LLM 態度保守。在缺乏上下文 (如 IP 信譽、JA3 指紋) 的情況下，LLM 難以單憑封包內容斷定是否為惡意攻擊。
 
 ![LLM 分析成果](evidence_llm1.png) 
-![](evidence_llm2.png)
-![](evidence_llm3.png)
-![](evidence_llm4.png)
+![LLM 分析成果](evidence_llm2.png)
+![LLM 分析成果](evidence_llm3.png)
+![LLM 分析成果](evidence_llm4.png)
 
 ## 4. 綜合比較結論 (Conclusion)
 
@@ -51,3 +51,4 @@ pip install scapy
 # 執行腳本 (將自動生成測試 PCAP 並轉換格式)
 
 python traffic_preprocessing.py
+
