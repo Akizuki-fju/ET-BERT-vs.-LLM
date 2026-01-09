@@ -18,12 +18,13 @@
 
 ![資料預處理成果](evidence_preprocessing.png)
 
-## 3. 實作二：LLM 流量分析實驗 (LLM Comparison)
+## 3. 實作二：LLM 流量分析實驗 
 作為對照組，我們提取了相同的 Hex Payload，直接輸入大型語言模型 (ChatGPT/GPT-4) 進行 "Zero-shot" 分析，測試其對純封包數據的理解能力。
 
 ### 分析結果
-* **協定識別 (Protocol ID)**：LLM 能精準識別出這是 **TLS ClientHello** 封包，並解析出 TLS 版本與 Cipher Suites。
-* **惡意判斷 (Detection)**：LLM 態度保守。在缺乏上下文 (如 IP 信譽、JA3 指紋) 的情況下，LLM 難以單憑封包內容斷定是否為惡意攻擊。
+* **協定識別**：LLM 能精準識別出這是 **TLS ClientHello** 封包，並解析出 TLS 版本與 Cipher Suites。
+* **惡意判斷**：LLM 態度保守，在缺乏上下文 (如 IP 信譽、JA3 指紋) 的情況下，LLM 難以單憑封包內容斷定是否為惡意攻擊。
+* 下圖為分析結果
 
 ![LLM 分析成果](evidence_llm1.png) 
 ![LLM 分析成果](evidence_llm2.png)
@@ -34,14 +35,14 @@
 
 本研究總結出兩種技術在資安實務上的不同定位：
 
-| 比較項目 | ET-BERT (專用小模型) | LLM (通用大模型) |
+| 比較項目 | ET-BERT | LLM |
 | :--- | :--- | :--- |
 | **輸入資料** | Hex Token 序列 | 自然語言 / Hex / Log |
 | **推論速度** | **極快** (適合即時串流偵測) | 慢 (高延遲，僅適合離線分析) |
-| **強項** | **檢測 (Detection)**：抓出隱蔽的惡意特徵 | **調查 (Investigation)**：解釋協定內容與欄位意義 |
-| **應用場景** | 大規模流量過濾、防火牆自動阻擋 | SOC 分析師輔助工具、威脅獵捕 (Threat Hunting) |
+| **強項** | **檢測**：抓出隱蔽的惡意特徵 | **調查**：解釋協定內容與欄位意義 |
+| **應用場景** | 大規模流量過濾、防火牆自動阻擋 | SOC 分析師輔助工具、威脅獵捕 |
 
-## 5. 如何執行腳本 (Usage)
+## 5. 如何執行腳本
 本專案包含一個 Python 預處理腳本 `traffic_preprocessing.py`。
 
 ```bash
@@ -51,4 +52,5 @@ pip install scapy
 # 執行腳本 (將自動生成測試 PCAP 並轉換格式)
 
 python traffic_preprocessing.py
+
 
