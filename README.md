@@ -2,12 +2,12 @@
 
 本專案旨在探討並比較 **ET-BERT (Encrypted Traffic BERT)** 與現代 **大型語言模型 (LLM)** 在惡意加密流量分析（如區分 Cobalt Strike C2 與 TeamViewer）上的應用成效與限制。
 
-## 1. 專案背景與目標 (Overview)
-隨著網路傳輸全面加密化 (TLS/SSL)，傳統的特徵碼檢測 (Signature-based) 已難以應對。
+## 1. 專案背景與目標 
+隨著網路傳輸全面加密化 (TLS/SSL)，傳統的特徵碼檢測已難以應對。
 * **ET-BERT 方法**：將封包的 Hex Payload 視為一種「語言」，透過預訓練模型來識別惡意流量的潛在特徵。
-* **研究目標**：實作 ET-BERT 的資料預處理流程，並將相同數據輸入 GPT-4 進行比較，分析兩者在資安防禦上的定位差異。
+* **研究目標**：實作 ET-BERT 的資料預處理流程，並將相同數據輸入 GPT-5 進行比較，分析兩者在資安防禦上的定位差異。
 
-## 2. 實作一：資料預處理 (Data Pre-processing)
+## 2. 實作一：資料預處理 
 為了驗證 ET-BERT 的運作機制，我們撰寫了 Python 自動化腳本 (基於 `scapy` 框架)，負責生成/讀取 PCAP 流量，並將其轉換為 BERT 模型專用的輸入格式。
 
 * **轉換邏輯**：將 Payload Bytes 轉換為 Hex String，並依序切割為 Token。
@@ -25,7 +25,10 @@
 * **協定識別 (Protocol ID)**：LLM 能精準識別出這是 **TLS ClientHello** 封包，並解析出 TLS 版本與 Cipher Suites。
 * **惡意判斷 (Detection)**：LLM 態度保守。在缺乏上下文 (如 IP 信譽、JA3 指紋) 的情況下，LLM 難以單憑封包內容斷定是否為惡意攻擊。
 
-![LLM 分析成果](evidence_llm1.png, evidence_llm2.png,evidence_llm3.png,evidence_llm4.png)
+![LLM 分析成果](evidence_llm1.png) 
+![](evidence_llm2.png)
+![](evidence_llm3.png)
+![](evidence_llm4.png)
 
 ## 4. 綜合比較結論 (Conclusion)
 
@@ -46,4 +49,5 @@
 pip install scapy
 
 # 執行腳本 (將自動生成測試 PCAP 並轉換格式)
+
 python traffic_preprocessing.py
