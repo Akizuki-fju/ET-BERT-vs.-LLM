@@ -45,12 +45,14 @@
 ## 5. 如何執行腳本
 本專案包含一個 Python 預處理腳本 `traffic_preprocessing.py`。
 
+# 安裝
 ```bash
-# 安裝依賴
 pip install scapy
+```
 
 # 執行腳本 (將自動生成測試 PCAP 並轉換格式)
-
+```bash
 python traffic_preprocessing.py
+```
 
 
